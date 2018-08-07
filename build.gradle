@@ -1,0 +1,38 @@
+plugins {
+    id "com.github.lkishalmi.gatling" version "0.7.3"
+}
+
+repositories {
+    mavenCentral()
+    google()
+}
+
+apply plugin: 'scala'
+apply plugin: 'application'
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile group: 'com.typesafe.play', name: 'play-json_2.12', version: '2.6.9'
+    testCompile 'junit:junit:4.12'
+    compile 'org.scala-lang:scala-library:2.12.6'
+    compile 'io.gatling.highcharts:gatling-charts-highcharts:2.3.1'
+}
+
+configurations {
+    gatling
+}
+
+tasks.withType(ScalaCompile) {
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+}
+
+task showConfigurations  {
+    doLast {
+        configurations.all { conf -> println(conf) }
+    }
+}
+
+group 'org.trd.liberator'
+version '0.5'
+
