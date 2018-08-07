@@ -24,8 +24,5 @@ hs_err_pid*
 
 # Folders
 target/
-gradle/
-build/
 .idea/
 .eclipse
-.gradle
