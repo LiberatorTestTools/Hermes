@@ -18,37 +18,31 @@
 
 package utilities
 
-import scala.collection.mutable
+import java.nio.ByteBuffer
 
-/**
-  * A base headers class to be inherited in user frameworks
-  */
-abstract class Headers {
-  /**
-    * The headers to be returned for a built header set
-    */
-  var headerMap:mutable.HashMap[String, String] = _
+import sun.misc.{BASE64Decoder, BASE64Encoder}
 
-  /**
-    * Adds a header to an existing header map
-    * @param entityHeader The name of the header entity
-    * @param entityValue The value of the header entity
-    * @return The header map with the additional value
-    */
-  def addToHeaders(entityHeader:String, entityValue:String):mutable.HashMap[String, String] = {
-    headerMap.put(entityHeader, entityValue)
-    headerMap
+object Base64 extends App {
+
+  def encodeString(string: String): String = {
+    val encoded = new BASE64Encoder()
+      .encode(string.getBytes())
+      .replace("\\n", "")
+      .replace("\\r", "")
+    encoded
   }
 
-  /**
-    * Concatenates two hash maps to create a header
-    * @param headers The hash map to add to the base set
-    * @return The resulting combined hash maps
-    */
-  def addToHeaders(headers:mutable.HashMap[String,String]):mutable.HashMap[String,String] = {
-    for (header <- headers) {
-      headerMap.put(header._1, header._2)
-    }
-    headerMap
+  def encodeBytes(string: Array[Byte]): String = {
+    val encoded = new BASE64Encoder()
+      .encode(string)
+      .replace("\\n", "")
+      .replace("\\r", "")
+    encoded
   }
+
+  def decodeString(string: String): ByteBuffer = {
+    val decoded = new BASE64Decoder().decodeBufferToByteBuffer(string)
+    decoded
+  }
+
 }

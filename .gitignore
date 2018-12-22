@@ -24,8 +24,39 @@ hs_err_pid*
 
 # Folders
 target/
-gradle/
 build/
+
+# sbt specific
+.cache/
+.history/
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
+.idea/copyright/*
+.idea/dictionaries/*
+.idea/libraries/*
+.idea/modules/*
+.idea/compiler.xml
+.idea/gradle.xml
+.idea/hydra.xml
+.idea/misc.xml
+.idea/scala_compiler.xml
+.idea/uiDesigner.xml
+.idea/vcs.xml
+.idea/workspace.xml
+
 .idea/
-.eclipse
 .gradle
+gradle/
+out/
+
+
+.eclipse

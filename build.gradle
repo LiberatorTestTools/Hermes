@@ -12,7 +12,11 @@ apply plugin: 'application'
 
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.21'
-    compile group: 'com.typesafe.play', name: 'play-json_2.12', version: '2.6.9'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
+    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-scala_2.12', version: '2.9.6'
+    compile group: 'com.roundeights', name: 'hasher_2.11', version: '1.2.0'
+    compile group: 'io.gatling', name: 'jsonpath_2.12', version: '0.6.12'
+    compile group: 'org.scalaxb', name: 'scalaxb_2.12', version: '1.7.0'
     testCompile 'junit:junit:4.12'
     compile 'org.scala-lang:scala-library:2.12.6'
     compile 'io.gatling.highcharts:gatling-charts-highcharts:2.3.1'

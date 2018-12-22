@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2018 Totally Ratted Ltd T/A Totally Ratted Developments
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+ * documentation files (the "Software"), to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
+ * and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of
+ * the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+ * THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package entities
 
 import utilities.Environment
@@ -47,9 +65,30 @@ class LoadProfile {
     */
   var requestsPerMinute:Int = _
 
+  /**
+    * Sends a stable number of requests per minute from a single user
+    * @param requestsPerMinute Number of requests per minute
+    */
   def this(requestsPerMinute: Double) = {
     this()
     this.usersAtOnce = 1
+    this.userIncrement = 1
+    this.peakUsers = 1
+    this.steps = 1
+    this.plateauDuration = Environment.duration
+    this.rampDuration = Environment.duration
+    this.peakDuration = Environment.duration
+    this.requestsPerMinute = requestsPerMinute.toInt
+  }
+
+  /**
+    * Sends a stable number of requests per minute from a specified number of users
+    * @param requestsPerMinute Number of requests per minute
+    * @param usersAtOnce The number of users to be passed to the injector
+    */
+  def this(requestsPerMinute: Double, usersAtOnce: Int) = {
+    this()
+    this.usersAtOnce = usersAtOnce
     this.userIncrement = 1
     this.peakUsers = 1
     this.steps = 1

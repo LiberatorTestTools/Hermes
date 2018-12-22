@@ -1,11 +1,29 @@
+/*
+ * Copyright (c) 2018 Totally Ratted Ltd T/A Totally Ratted Developments
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+ * documentation files (the "Software"), to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
+ * and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of
+ * the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+ * THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package scenarios
 
 import entities.RequestObject
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder._
+import utilities.CallType.CallType
 import utilities.{CallType, Utilities}
-import utilities.concord.CallType.CallType
 
 import scala.collection._
 
@@ -13,6 +31,7 @@ import scala.collection._
   * The base request object, which is to be extended
   * @param request The Request Object passed by the Simulation
   */
+//noinspection VarCouldBeVal
 abstract class BaseRequest(request: RequestObject) {
 
   /**
@@ -29,6 +48,11 @@ abstract class BaseRequest(request: RequestObject) {
     * Message to be reported in the console
     */
   var httpMessage: Http = http(request.message)
+
+  /**
+    * The body of the request
+    */
+  var reqBody: String = request.body
 
   /**
     * Builds an HTTP request based on a Call Type
@@ -49,7 +73,7 @@ abstract class BaseRequest(request: RequestObject) {
 
     var requestVerb: HttpRequestBuilder = requestType
     if(!Utilities.isEmptyMap(immutableHeader)){ requestVerb = requestType.headers(immutableHeader) }
-    if(!request.body.isEmpty) { requestVerb.body(StringBody(request.body)) }
+    if(!request.body.isEmpty) { requestVerb.body(StringBody(reqBody)) }
     requestVerb.check(status.is(request.status))
   }
 
