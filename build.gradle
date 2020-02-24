@@ -1,6 +1,10 @@
 plugins {
+    id 'java'
     id "com.github.lkishalmi.gatling" version "3.2.9"
 }
+
+group 'org.liberator'
+version '0.5'
 
 repositories {
     mavenCentral()
@@ -36,7 +40,3 @@ task showConfigurations  {
         configurations.all { conf -> println(conf) }
     }
 }
-
-group 'org.liberator'
-version '0.5'
-
