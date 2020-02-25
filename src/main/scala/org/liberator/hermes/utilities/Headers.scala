@@ -16,29 +16,39 @@
  * SOFTWARE.
  */
 
-package utilities
+package org.liberator.hermes.utilities
 
-import entities.InfoObject
-
+import scala.collection.mutable
 
 /**
-  * An abstract class to be inherited by user frameworks
+  * A base headers class to be inherited in user frameworks
   */
-abstract class Body {
+abstract class Headers {
   /**
-    * Body to be used in requests, defaulted to an empty string
+    * The headers to be returned for a built header set
     */
-  var body:String = ""
-
+  var headerMap:mutable.HashMap[String, String] = _
 
   /**
-    * Creates a json blob in string format from a passed information object
-    * @param infoObject The information object to be formatted
-    * @return The json in string format
+    * Adds a header to an existing header map
+    * @param entityHeader The name of the header entity
+    * @param entityValue The value of the header entity
+    * @return The header map with the additional value
     */
-  //TODO: json serialise
-  def jsonStringFromObject(infoObject: InfoObject):String = {
-    body
+  def addToHeaders(entityHeader:String, entityValue:String):mutable.HashMap[String, String] = {
+    headerMap.put(entityHeader, entityValue)
+    headerMap
   }
 
+  /**
+    * Concatenates two hash maps to create a header
+    * @param headers The hash map to add to the base set
+    * @return The resulting combined hash maps
+    */
+  def addToHeaders(headers:mutable.HashMap[String,String]):mutable.HashMap[String,String] = {
+    for (header <- headers) {
+      headerMap.put(header._1, header._2)
+    }
+    headerMap
+  }
 }

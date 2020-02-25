@@ -1,4 +1,4 @@
-package utilities
+package org.liberator.hermes.utilities
 
 import java.security.MessageDigest
 

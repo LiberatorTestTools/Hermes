@@ -1,6 +1,10 @@
 plugins {
-    id "com.github.lkishalmi.gatling" version "0.7.3"
+    id 'java'
+    id "com.github.lkishalmi.gatling" version "3.2.9"
 }
+
+group 'org.liberator'
+version '0.5'
 
 repositories {
     mavenCentral()
@@ -19,7 +23,7 @@ dependencies {
     compile group: 'org.scalaxb', name: 'scalaxb_2.12', version: '1.7.0'
     testCompile 'junit:junit:4.12'
     compile 'org.scala-lang:scala-library:2.12.6'
-    compile 'io.gatling.highcharts:gatling-charts-highcharts:2.3.1'
+    compile 'io.gatling.highcharts:gatling-charts-highcharts:3.3.1'
 }
 
 configurations {
@@ -36,7 +40,3 @@ task showConfigurations  {
         configurations.all { conf -> println(conf) }
     }
 }
-
-group 'org.trd.liberator'
-version '0.5'
-

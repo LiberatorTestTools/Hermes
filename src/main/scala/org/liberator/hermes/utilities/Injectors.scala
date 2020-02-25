@@ -16,11 +16,11 @@
  * SOFTWARE.
  */
 
-package utilities
+package org.liberator.hermes.utilities
 
-import entities.LoadProfile
+import org.liberator.hermes.entities.LoadProfile
 import io.gatling.core.Predef._
-import io.gatling.core.controller.inject._
+import io.gatling.core.controller.inject.open._
 
 import scala.collection.mutable
 import scala.concurrent.duration._
@@ -39,7 +39,7 @@ abstract class Injectors(loadProfile: LoadProfile) {
     * @param secs The number of seconds to pause
     * @return An injection step representing a pause
     */
-  def pauseFor(secs:Int):InjectionStep = {
+  def pauseFor(secs:Int):OpenInjectionStep = {
     val pause = nothingFor(secs)
     Environment.injectionSteps ++= Set(pause)
     pause
@@ -51,8 +51,8 @@ abstract class Injectors(loadProfile: LoadProfile) {
     * @param userCount The number of At Once Users
     * @return An injection step
     */
-  def atOnce(userCount: Int): InjectionStep = {
-    val numberOfUsers: InjectionStep = atOnceUsers(userCount)
+  def atOnce(userCount: Int): OpenInjectionStep = {
+    val numberOfUsers: OpenInjectionStep = atOnceUsers(userCount)
     Environment.injectionSteps ++= Set(numberOfUsers)
     numberOfUsers
   }
@@ -64,8 +64,8 @@ abstract class Injectors(loadProfile: LoadProfile) {
     * @param duration  The duration of any constant load
     * @return An injection step
     */
-  def rateInjection(userCount: Double, duration: Int): InjectionStep = {
-    val rate: InjectionStep = {
+  def rateInjection(userCount: Double, duration: Int): OpenInjectionStep = {
+    val rate: OpenInjectionStep = {
       constantUsersPerSec(userCount) during (duration seconds)
     }
     Environment.injectionSteps ++= Seq(rate)
@@ -80,8 +80,8 @@ abstract class Injectors(loadProfile: LoadProfile) {
     * @param rampDuration The duration of the ramp
     * @return An injection step
     */
-  def rampUsers(userStart: Int, userEnd: Int, rampDuration: Int): InjectionStep = {
-    val ramp: InjectionStep = {
+  def rampUsers(userStart: Int, userEnd: Int, rampDuration: Int): OpenInjectionStep = {
+    val ramp: OpenInjectionStep = {
       rampUsersPerSec(userStart) to userEnd during rampDuration
     }
     Environment.injectionSteps ++= Seq(ramp)
@@ -98,7 +98,7 @@ abstract class Injectors(loadProfile: LoadProfile) {
     *
     * @return A Gatling injector statement
     */
-  def runOnce(): mutable.Iterable[InjectionStep] = {
+  def runOnce(): mutable.Iterable[OpenInjectionStep] = {
     atOnce(loadProfile.usersAtOnce)
     Environment.injectionSteps
   }
@@ -109,7 +109,7 @@ abstract class Injectors(loadProfile: LoadProfile) {
     * @param secs
     * @return
     */
-  def runOnceWithPause(secs:Int): mutable.Iterable[InjectionStep] = {
+  def runOnceWithPause(secs:Int): mutable.Iterable[OpenInjectionStep] = {
     pauseFor(secs)
     atOnce(loadProfile.usersAtOnce)
     Environment.injectionSteps
@@ -120,7 +120,7 @@ abstract class Injectors(loadProfile: LoadProfile) {
     *
     * @return A Gatling injector statement
     */
-  def constantLoading(): mutable.Iterable[InjectionStep] = {
+  def constantLoading(): mutable.Iterable[OpenInjectionStep] = {
     atOnce(loadProfile.usersAtOnce)
     rateInjection(loadProfile.usersAtOnce, loadProfile.plateauDuration)
     Environment.injectionSteps
@@ -130,7 +130,7 @@ abstract class Injectors(loadProfile: LoadProfile) {
     * Builds the injector for a set number of users per minute in a Gatling test
     * @return A Gatling injector statement
     */
-  def usersPerMinute: mutable.Iterable[InjectionStep] = {
+  def usersPerMinute: mutable.Iterable[OpenInjectionStep] = {
     atOnce(loadProfile.usersAtOnce)
     rateInjection(Environment.rpm / 60, loadProfile.plateauDuration)
     Environment.injectionSteps
@@ -141,7 +141,7 @@ abstract class Injectors(loadProfile: LoadProfile) {
     *
     * @return A Gatling injector statement
     */
-  def steppedLoading(): mutable.Iterable[InjectionStep] = {
+  def steppedLoading(): mutable.Iterable[OpenInjectionStep] = {
     var _users = loadProfile.usersAtOnce
     atOnce(_users)
 
@@ -159,7 +159,7 @@ abstract class Injectors(loadProfile: LoadProfile) {
     *
     * @return A Gatling injector statement
     */
-  def peakLoading(): mutable.Iterable[InjectionStep] = {
+  def peakLoading(): mutable.Iterable[OpenInjectionStep] = {
     atOnce(loadProfile.usersAtOnce)
 
     for (_ <- 1 to loadProfile.steps) {
@@ -178,7 +178,7 @@ abstract class Injectors(loadProfile: LoadProfile) {
     *
     * @return A Gatling injector statement
     */
-  def dailyProfile(): mutable.Iterable[InjectionStep] = {
+  def dailyProfile(): mutable.Iterable[OpenInjectionStep] = {
     var _users: Int = loadProfile.usersAtOnce
     var _endUsers: Int = loadProfile.usersAtOnce
     atOnce(_users)

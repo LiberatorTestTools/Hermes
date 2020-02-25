@@ -16,7 +16,7 @@
  * SOFTWARE.
  */
 
-package simulations
+package org.liberator.hermes.simulations
 
 import scala.collection.mutable
 

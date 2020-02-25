@@ -16,7 +16,7 @@
  * SOFTWARE.
  */
 
-package entities
+package org.liberator.hermes.entities
 
 import scala.collection.mutable
 

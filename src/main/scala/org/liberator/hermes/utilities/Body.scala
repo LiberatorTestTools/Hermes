@@ -16,9 +16,29 @@
  * SOFTWARE.
  */
 
-package utilities
+package org.liberator.hermes.utilities
 
-object CallType extends Enumeration {
-  type CallType = Value
-  val Delete, Get, Head, Option, Patch, Post, Put = Value
+import org.liberator.hermes.entities.InfoObject
+
+
+/**
+  * An abstract class to be inherited by user frameworks
+  */
+abstract class Body {
+  /**
+    * Body to be used in requests, defaulted to an empty string
+    */
+  var body:String = ""
+
+
+  /**
+    * Creates a json blob in string format from a passed information object
+    * @param infoObject The information object to be formatted
+    * @return The json in string format
+    */
+  //TODO: json serialise
+  def jsonStringFromObject(infoObject: InfoObject):String = {
+    body
+  }
+
 }

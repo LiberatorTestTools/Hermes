@@ -16,9 +16,9 @@
  * SOFTWARE.
  */
 
-package utilities
+package org.liberator.hermes.utilities
 
-import io.gatling.core.controller.inject.InjectionStep
+import io.gatling.core.controller.inject.open.OpenInjectionStep
 import io.gatling.core.structure.PopulationBuilder
 
 import scala.collection.mutable
@@ -32,8 +32,8 @@ object Environment {
   /**
     * The currently used list of injection steps which is used for a Gatling performance test
     */
-  var injectionSteps: mutable.Iterable[InjectionStep] = new mutable.Queue[InjectionStep]
-  var stepsCompiled: mutable.Iterable[InjectionStep] = new mutable.Queue[InjectionStep]
+  var injectionSteps: mutable.Iterable[OpenInjectionStep] = new mutable.Queue[OpenInjectionStep]
+  var stepsCompiled: mutable.Iterable[OpenInjectionStep] = new mutable.Queue[OpenInjectionStep]
 
   /**
     * Base URL for the host for the requests

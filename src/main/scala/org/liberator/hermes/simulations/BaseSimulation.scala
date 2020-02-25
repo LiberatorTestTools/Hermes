@@ -16,7 +16,7 @@
  * SOFTWARE.
  */
 
-package simulations
+package org.liberator.hermes.simulations
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
@@ -47,10 +47,9 @@ abstract class BaseSimulation extends Simulation {
     this.baseUrl = service
     this.baseHeader = header
     this.httpConfig = http
-      .baseURL(baseUrl)
+      .baseUrl(baseUrl)
       .headers(this.baseHeader.toMap)
       .disableWarmUp
-      .extraInfoExtractor(extraInfo => List(println(extraInfo.request),extraInfo.response, extraInfo.session))
   }
 
   /**
@@ -60,17 +59,15 @@ abstract class BaseSimulation extends Simulation {
   def setServiceOnly(service:String): Unit ={
     this.baseUrl = service
     this.httpConfig = http
-      .baseURL(baseUrl)
+      .baseUrl(baseUrl)
       .disableWarmUp
-      .extraInfoExtractor(extraInfo => List(println(extraInfo.request),extraInfo.response, extraInfo.session))
   }
 
   /**
     * Sets the http protocol
     */
   var httpConfig:HttpProtocolBuilder = http
-    .baseURL(baseUrl)
+    .baseUrl(baseUrl)
     .headers(this.baseHeader.toMap)
     .disableWarmUp
-    .extraInfoExtractor(extraInfo => List(println(extraInfo.request),extraInfo.response, extraInfo.session))
 }

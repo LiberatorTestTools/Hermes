@@ -16,10 +16,12 @@
  * SOFTWARE.
  */
 
-package entities
+package org.liberator.hermes.entities
 
 /**
   * Base class for any objects to be passed to scenarios in Request Objects
+  *
+  * This is currently an empty root class for Requests, but this may change in future
   */
 abstract class InfoObject {
 

@@ -16,7 +16,7 @@
  * SOFTWARE.
  */
 
-package utilities
+package org.liberator.hermes.utilities
 
 import java.io.{FileOutputStream, PrintWriter}
 import java.util.concurrent.ConcurrentLinkedQueue

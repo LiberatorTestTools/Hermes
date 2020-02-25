@@ -16,14 +16,14 @@
  * SOFTWARE.
  */
 
-package scenarios
+package org.liberator.hermes.scenarios
 
-import entities.RequestObject
+import org.liberator.hermes.entities._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder._
-import utilities.CallType.CallType
-import utilities.{CallType, Utilities}
+import org.liberator.hermes.utilities.CallType.CallType
+import org.liberator.hermes.utilities.{CallType, Utilities}
 
 import scala.collection._
 

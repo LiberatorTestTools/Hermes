@@ -16,9 +16,9 @@
  * SOFTWARE.
  */
 
-package entities
+package org.liberator.hermes.entities
 
-import utilities.Environment
+import org.liberator.hermes.utilities.Environment
 
 /**
   * A load profile is a series of settings that are used to create an Injector
